@@ -1,0 +1,23 @@
+<body>
+
+    <h1>Pizza : {{Pizza}}</h1>   
+    <h2>Price : {{Price}}</h2>
+    
+
+
+    {{#if ingredients}}
+    <ul>
+        {{#each ingredients}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+    {{else}}
+        <h3>Call us for have all Ingredients</h3>
+    {{/if}}
+   
+   
+    <img src="/images/{{imageFile}}">
+
+    {{> ctaOrderNow}}
+
+</body>

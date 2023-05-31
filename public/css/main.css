@@ -1,11 +1,12 @@
 body{
     background-color: brown;
+    text-align: center;
 }
 
 nav{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     padding-top: 4em;
     margin-bottom: 3em;
 }
