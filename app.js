@@ -1,7 +1,13 @@
 const express = require("express");
-const hbs = require("hbs")
+const hbs = require("hbs");
+
+const Pizza = require("./models/Pizza.model");
+
+const mongoose = require("mongoose");
 
 const app = express();
+
+
 
 app.use(express.static('public')); //Make everything inside of public/ available
 
@@ -10,6 +16,12 @@ app.set("view engine", "hbs");// set HBS as a the template engine
 
 hbs.registerPartials(__dirname + "/views/partials");
 
+
+mongoose.connect("mongodb://127.0.0.1:27017/loopeyRestaurant")
+.then(x => {
+    console.log(`Connected! Database name: "${x.connections[0].name}"`);
+  })
+.catch( e => console.log("error connecting to DB", e));
 
 
 
@@ -27,44 +39,53 @@ app.get('/contact', (req, res, next) =>
     )
 
 app.get('/pizza/margarita', (req, res, send) => {
-    
-    const info = {
-        Pizza: "Margarita",
-        Price: "14$",
-        imageFile: "pizza-margarita.jpg",
-        ingredients: ['mozzarella', 'tomato sauce', 'basilicum'],
-    }
 
+    Pizza.findOne({title: "margarita"})
+        .then( (pizzaFromDB) => {
+            console.log(pizzaFromDB);
+
+            res.render("product", pizzaFromDB)
+        })
+        .catch(e => console.log("error", e));
     
-    res.render("product", info)
 })
 
 app.get('/pizza/veggie', (req, res, send) => {
     
-    const info ={
-        Pizza: "Veggie",
-        Price: '13$',
-        imageFile: "pizza-veggie.jpg",
-        ingredients: ['cherry tomatoes', 'basilicum', 'Olives'],
-    }
+   Pizza.findOne({title: "veggie"})
+   .then( (pizzaFromDB) => {
+        console.log(pizzaFromDB);
 
-    res.render("product", info)
+        res.render("product", pizzaFromDB)
+   })
+   .catch(e => console.log('error', e));
+
 })
 
 app.get('/pizza/seafood', (req, res, send) => {
     
-    const info = {
-        Pizza: "Seafood",
-        Price: "18$",
-        imageFile: "pizza-seafood.jpg",
-        ingredients: ['tomato sauce', 'garlic', 'prawn'],
-    }
-    
-    res.render("product", info)
+    Pizza.findOne({title: "seafood"})
+        .then( (pizzaFromDB) => {
+            console.log(pizzaFromDB)
+            res.render('product', pizzaFromDB)
+        })
+        .catch(e => console.log('error', e));
 })
 
-
+app.get('/pizza/hawaiian', (req, res, send) => {
+    
+    Pizza.findOne({title: "hawaiian"})
+        .then((pizzaFromDB) => {
+            console.log(pizzaFromDB);
+            res.render("product", pizzaFromDB);
+        })
+        .catch(e => console.log("error", e) );
+    })
 
 
 
 app.listen(3000, () => console.log('My first app listening on port 3000! '));
+
+
+
+

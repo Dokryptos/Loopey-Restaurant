@@ -1,7 +1,7 @@
 <body>
 
-    <h1>Pizza : {{Pizza}}</h1>   
-    <h2>Price : {{Price}}</h2>
+    <h1>Pizza : {{title}}</h1>   
+    <h2>Price : {{price}}$</h2>
     
 
 
@@ -10,14 +10,17 @@
         {{#each ingredients}}
             <li>{{this}}</li>
         {{/each}}
+        <li>{{dough}}</li>
     </ul>
+    <h4>This Pizza is Veggie : {{isVeggie}}</h4>
     {{else}}
         <h3>Call us for have all Ingredients</h3>
     {{/if}}
    
-   
+    
     <img src="/images/{{imageFile}}">
 
     {{> ctaOrderNow}}
 
+    <h3>We need :{{timer}} Minutes for cook this Pizza.</h3>
 </body>
